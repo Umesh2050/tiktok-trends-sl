@@ -19,7 +19,7 @@ jobs:
                 \"text\":\"List top 5 TikTok trends in Sri Lanka today as JSON array. Example format: [{rank:1,topic:\'Political Memes\',views:\'2.4M\',hashtags:[\'#SLPolitics\']}]\"}]
             }]
           }' \
-          \"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${{ secrets.GEMINI_KEY }}\" \
+          \"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${{ secrets.AIzaSyBEc9zbrUS_uz0lV-rFplT_Eh-m0eSr0Ug }}\" \
           | jq '.candidates[0].content.parts[0].text')" > trends.js
       - name: Push Changes
         run: |
