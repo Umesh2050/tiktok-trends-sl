@@ -1,0 +1,30 @@
+name: Update Trends
+on:
+  schedule:
+    - cron: '0 8 * * *'  # Runs daily at 8AM Sri Lanka time
+  workflow_dispatch:  # Lets you trigger manually
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch Trends
+        run: |
+          echo "const trends = $(curl -s -X POST \
+          -H 'Content-Type: application/json' \
+          -d '{
+            \"contents\":[{
+              \"parts\":[{
+                \"text\":\"List top 5 TikTok trends in Sri Lanka today as JSON array. Example format: [{rank:1,topic:\'Political Memes\',views:\'2.4M\',hashtags:[\'#SLPolitics\']}]\"}]
+            }]
+          }' \
+          \"https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${{ secrets.GEMINI_KEY }}\" \
+          | jq '.candidates[0].content.parts[0].text')" > trends.js
+      - name: Push Changes
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Auto-update trends"
+          git push
