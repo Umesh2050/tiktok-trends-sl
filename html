@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>🇱🇰 TikTok Sri Lanka Trends</title>
+    <script src="trends.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .trend { background: #f5f5f5; padding: 15px; margin: 10px 0; border-radius: 8px; }
+        .tag { display: inline-block; background: #e0e0ff; padding: 2px 8px; border-radius: 4px; margin-right: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Today's TikTok Trends in Sri Lanka</h1>
+    <div id="trends-container"></div>
+    
+    <script>
+        document.getElementById('trends-container').innerHTML = 
+            trends.map(t => `
+                <div class="trend">
+                    <b>#${t.rank}</b> ${t.topic} (${t.views})<br>
+                    ${t.hashtags.map(h => `<span class="tag">${h}</span>`).join('')}
+                </div>
+            `).join('');
+    </script>
+</body>
+</html>
